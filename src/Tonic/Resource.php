@@ -147,7 +147,11 @@ class Resource
                     }
                 }
             }
-            $response = Response::create(call_user_func_array(array($this, $methodName), $this->params));
+            if((new \ReflectionMethod($this, $methodName))->getNumberOfRequiredParameters() > 0) {
+                $response = Response::create(call_user_func_array(array($this, $methodName), $this->params));
+            } else {
+                $response = Response::create(call_user_func(array($this, $methodName)));
+            }
             foreach (array('*', $methodName) as $mn) {
                 if (isset($this->after[$mn])) {
                     foreach ($this->after[$mn] as $action) {
