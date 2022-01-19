@@ -147,8 +147,12 @@ class Resource
                     }
                 }
             }
-            if((new \ReflectionMethod($this, $methodName))->getNumberOfRequiredParameters() > 0) {
-                $response = Response::create(call_user_func_array(array($this, $methodName), $this->params));
+            if((new \ReflectionMethod($this, $methodName))->getNumberOfParameters() > 0) {
+                // Select only parameters that have numeric keys
+                $params = array_filter($this->params, function($key) {
+                    return is_numeric($key);
+                }, ARRAY_FILTER_USE_KEY);
+                $response = Response::create(call_user_func_array(array($this, $methodName), $params));
             } else {
                 $response = Response::create(call_user_func(array($this, $methodName)));
             }
