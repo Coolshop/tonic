@@ -1,8 +1,7 @@
 {
-    "name": "peej/tonic",
+    "name": "coolshop/tonic",
     "description": "The RESTful Web App PHP Micro-Framework",
     "keywords": ["rest", "microframework"],
-    "homepage": "http://peej.github.com/tonic",
     "license": "MIT",
     "authors": [
         {
